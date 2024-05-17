@@ -72,12 +72,10 @@ class NoteController extends Controller
             'note' => ['required', 'string', 'max:255']
         ]);
 
-        $data['user_id'] = 1;
-
         $note->update($data);
 
         // return redirect()->route('note.show', $note);
-        return to_route('note.show', $note)->with('success', 'Note updated successfully');
+        return to_route('note.show', $note)->with('message', 'Note updated successfully');
     }
 
     /**
@@ -85,6 +83,9 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        return 'destroy';
+
+        $note->delete();
+
+        return redirect()->route('note.index')->with('message', 'Note deleted successfully');
     }
 }
